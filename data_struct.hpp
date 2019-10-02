@@ -5,7 +5,7 @@ struct atom_type {
 	std::string terminal;
 	std::string nonter;
 };
-
+// useless comment to test git config
 struct node {
 	std::string clas;
 	node *plus_t;

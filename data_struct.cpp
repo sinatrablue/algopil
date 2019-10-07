@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main {
+int main(void) {
 	// Define a table with 5 node pointers in it
 	node A[5];
 	node *S;
@@ -18,6 +18,6 @@ int main {
 	A[4] = F;
 
 	GenForet();
-	
+
 	return EXIT_SUCCESS;
 }

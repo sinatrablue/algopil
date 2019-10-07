@@ -8,33 +8,33 @@ struct atom_type {
 // useless comment to test git config
 struct node {
 	std::string clas;
-	node *plus_t;
-	node *conc_t;
-	node *fang_t;
-	node *atom_t;
-	node *ou_t;
+	plus *plus_t;
+	conc *conc_t;
+	fang *fang_t;
+	atom *atom_t;
+	ou *ou_t;
 };
 
-struct plus {
+typedef struct plus {
 	node *left;
 	node *right;
 };
 
-struct conc {
+typedef struct conc {
 	node *left;
 	node *right;
 };
 
-struct fang {
+typedef struct fang {
 	node *child;
 };
 
-struct ou {
+typedef struct ou {
 	node *left;
 	node *right;
 };
 
-struct atom {
+typedef struct atom {
 	atom_type *type;
 	int *cod;  // 0 ou 1
 	char *action;

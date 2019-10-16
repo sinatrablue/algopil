@@ -74,7 +74,7 @@ node *GenOu(node *c){
 	return val;
 }
 
-node *GenAtom(std::string *a, int *code, bool *t){
+node *GenAtom(const char *a, int code, bool t){
 	node *val = new node;
 	val->clas="atom";
 	val->atom_t->action=a;
@@ -89,6 +89,7 @@ int *ttest;
 bool *tttest;
 node *Test = GenAtom(test, ttest, tttest);
 */
+
 void GenForet(){
 	int S = 0;
 	int N = 1;
@@ -96,5 +97,5 @@ void GenForet(){
 	int T = 3;
 	int F = 4;
 
-	node A[S] = GenConc(GenFang(GenConc(GenConc(GenConc(GenAtom("N",0,false),GenAtom("->",0,true)),GenAtom("E",0,false)),GenAtom(",",1,true),GenAtom(";",0,true))));
+	node *A[S] = GenConc(GenFang(GenConc(GenConc(GenConc(GenAtom("N",0,false),GenAtom("->",0,true)),GenAtom("E",0,false)),GenAtom(",",1,true))),GenAtom(";",0,true));
 }

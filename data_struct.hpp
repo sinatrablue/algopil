@@ -1,46 +1,43 @@
 #include<iostream>
 #include<string>
 
-/* typedef struct atom_type {
-	std::string terminal;
-	std::string nonter;
-}atom_type; */
-
-typedef struct node {
-	std::string clas;
-	plus *plus_t;
-	conc *conc_t;
-	fang *fang_t;
-	atom *atom_t;
-	ou *ou_t;
-}node;
+typedef struct node Node;
 
 typedef struct plus {
-	node *left;
-	node *right;
+	Node *left;
+	Node *right;
 }plus;
 
 typedef struct conc {
-	node *left;
-	node *right;
+	Node *left;
+	Node *right;
 }conc;
 
 typedef struct fang {
-	node *child;
+	Node *child;
 }fang;
 
 typedef struct ou {
-	node *left;
-	node *right;
+	Node *left;
+	Node *right;
 }ou;
 
 typedef struct atom {
 	bool *is_term;
 	int *cod;  // 0 ou 1
 	char *action;
-	node *child;
+	Node *child;
 }atom
 ;
+
+struct node {
+	std::string clas;
+	plus *plus_t;
+	conc *conc_t;
+	fang *fang_t;
+	atom *atom_t;
+	ou *ou_t;
+};
 
 // Gen functions :
 
@@ -82,13 +79,6 @@ node *GenAtom(const char *a, int code, bool t){
 	val->atom_t->is_term=t;
 	return val;
 }
-
-/*  Ce test fonctionne, donc les valeurs qu'on passe à GenAtom dans GenForest ne sont pas du type attendu
-std::string *test;
-int *ttest;
-bool *tttest;
-node *Test = GenAtom(test, ttest, tttest);
-*/
 
 void GenForet(){
 	int S = 0;

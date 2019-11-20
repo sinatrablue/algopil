@@ -1,11 +1,12 @@
 #include<iostream>
-#include<data_struct.h>
+#include"data_struct.hpp"
 
 using namespace std;
 
 int main(void) {
 	// Define a table with 5 node pointers in it
-	node A[5];
+	
+	/*
 	node *S;
 	node *N;
 	node *E;
@@ -16,6 +17,7 @@ int main(void) {
 	A[2] = E;
 	A[3] = T;
 	A[4] = F;
+	*/
 
 	GenForet();
 

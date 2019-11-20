@@ -39,11 +39,6 @@ struct node {
 };
 
 // Gen functions :
-plus *ptest;
-conc *ctest;
-fang *ftest;
-atom *atest;
-ou *otest;
 
 node *GenConc(node *r, node *l) {
 	node *val = new node;
@@ -52,10 +47,6 @@ node *GenConc(node *r, node *l) {
 	c->right=r;
 	val->conc_t=c;
 	val->clas="conc";
-	val->plus_t=ptest;
-	val->fang_t=ftest;
-	val->atom_t=atest;
-	val->ou_t=otest;
 	return val;
 	delete c;
 }
@@ -66,10 +57,6 @@ node *GenFang(node *c){
 	f->child=c;
 	val->clas="fang";
 	val->fang_t=f;
-	val->conc_t=ctest;
-	val->plus_t=ptest;
-	val->atom_t=atest;
-	val->ou_t=otest;
 	return val;
 	delete f;
 }
@@ -81,10 +68,6 @@ node *GenPlus(node *r, node *l) {
 	p->right=r;
 	val->plus_t=p;
 	val->clas="plus";
-	val->fang_t=ftest;
-	val->conc_t=ctest;
-	val->atom_t=atest;
-	val->ou_t=otest;
 	return val;
 	delete p;
 }
@@ -95,10 +78,6 @@ node *GenOu(node *c){
 	val->clas="ou";
 	o->child=c;
 	val->ou_t=o;
-	val->plus_t=ptest;
-	val->fang_t=ftest;
-	val->conc_t=ctest;
-	val->atom_t=atest;
 	return val;
 	delete o;
 }
@@ -111,10 +90,6 @@ node *GenAtom(const char *a, int code, bool t){
 	at->cod=code;
 	at->is_term=t;
 	val->atom_t=at;
-	val->plus_t=ptest;
-	val->fang_t=ftest;
-	val->conc_t=ctest;
-	val->ou_t=otest;
 	return val;
 	delete at;
 }
@@ -129,19 +104,22 @@ void GenForet()
 	int T = 3;
 	int F = 4;
 	
-	node *test = GenConc(
-				GenFang(
-					GenConc(
-						GenConc(
-							GenConc(
-								GenAtom("N",0,false),
-							GenAtom("->",0,true)),
-						GenAtom("E",0,false)),
-					GenAtom(",",1,true))),
-			GenAtom(";",0,true));
+	node *AS = GenConc(	GenFang( GenConc( GenConc( GenConc( GenAtom("N",0,false),GenAtom("->",0,true)),	GenAtom("E",0,false)),GenAtom(",",1,true))),GenAtom(";",0,true));
+	node *AN = GenAtom("IDNTER", 0, false);
+	node *AE = GenConc(	GenFang( GenConc( GenAtom("T", 0, false), GenAtom("+", 0, false))), GenAtom("+", 0, false))	;
+	node *AT = GenConc(	GenFang( GenConc( GenAtom("F", 0, false), GenAtom(".", 0, false))), GenAtom("F", 0, false))	;
+	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",0,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
 
-	
-	std::cout << "Before assign" << std::endl;
-	A[S] = { test } ;
-	std::cout << "Assign passed" << std::endl;
+	A[S] = { AS } ;
+	std::cout << "S generated" << std::endl;
+	A[N] = { AN } ;
+	std::cout << "N generated" << std::endl;
+	A[E] = { AE } ;
+	std::cout << "E generated" << std::endl;
+	A[T] = { AT } ;
+	std::cout << "T generated" << std::endl;
+	A[F] = { AF } ;
+	std::cout << "F generated" << std::endl;
+
+
 }

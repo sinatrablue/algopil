@@ -30,7 +30,7 @@ typedef struct atom {
 ;
 
 struct node {
-	std::string clas;
+	int clas;
 	plus *plus_t;
 	conc *conc_t;
 	fang *fang_t;
@@ -46,7 +46,7 @@ node *GenConc(node *r, node *l) {
 	c->left=l;
 	c->right=r;
 	val->conc_t=c;
-	val->clas="conc";
+	val->clas=1;
 	return val;
 	delete c;
 }
@@ -55,7 +55,7 @@ node *GenFang(node *c){
 	node *val = new node;
 	fang *f = new fang;
 	f->child=c;
-	val->clas="fang";
+	val->clas=4;
 	val->fang_t=f;
 	return val;
 	delete f;
@@ -67,7 +67,7 @@ node *GenPlus(node *r, node *l) {
 	p->left=l;
 	p->right=r;
 	val->plus_t=p;
-	val->clas="plus";
+	val->clas=2;
 	return val;
 	delete p;
 }
@@ -75,7 +75,7 @@ node *GenPlus(node *r, node *l) {
 node *GenOu(node *c){
 	node *val = new node;
 	ou *o = new ou;
-	val->clas="ou";
+	val->clas=3;
 	o->child=c;
 	val->ou_t=o;
 	return val;
@@ -85,13 +85,57 @@ node *GenOu(node *c){
 node *GenAtom(const char *a, int code, bool t){
 	node *val = new node;
 	atom *at = new atom;
-	val->clas="atom";
+	val->clas=5;
 	at->action=a;
 	at->cod=code;
 	at->is_term=t;
 	val->atom_t=at;
 	return val;
 	delete at;
+}
+
+void printArbre(node *ptr){
+    int prof=0;
+    prof+=1;
+	std::string write;
+
+    for(int k=1;k<=prof;k++){
+		write += "...";
+        std::cout << write ;
+
+        switch(ptr->clas){
+            case 1 :
+            std::cout << "> Conc" << std::endl;
+            printArbre(ptr->conc_t->left);
+            printArbre(ptr->conc_t->right);
+			break;
+            case 2 :
+            std::cout << "> Plus" << std::endl;
+            printArbre(ptr->plus_t->left);
+            printArbre(ptr->plus_t->right);
+			break;
+            case 3 :
+            std::cout << "> Ou" << std::endl;
+            printArbre(ptr->ou_t->child);
+			break;
+            case 4 :
+            std::cout << "> Star" << std::endl;
+            printArbre(ptr->fang_t->child);
+			break;
+            case 5 :
+            std::cout << "> Atom" << std::endl;
+            if(ptr->atom_t->is_term){
+                std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Terminal" << std::endl;
+            } else {
+                std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Non-Terminal" << std::endl;
+            }
+            break;
+			default:
+			std::cout << "Problème de type inconnu" << std::endl;
+			break;
+        }
+        prof-=1;
+    }
 }
 
 void GenForet()
@@ -121,5 +165,14 @@ void GenForet()
 	A[F] = { AF } ;
 	std::cout << "F generated" << std::endl;
 
-
+	printArbre(A[S]);
+	std::cout << "=============================================================" << std::endl;
+	printArbre(A[N]);
+	std::cout << "=============================================================" << std::endl;
+	printArbre(A[E]);
+	std::cout << "=============================================================" << std::endl;
+	printArbre(A[T]);
+	std::cout << "=============================================================" << std::endl;
+	printArbre(A[F]);
+	std::cout << "=============================================================" << std::endl;
 }

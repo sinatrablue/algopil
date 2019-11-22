@@ -4,22 +4,9 @@
 using namespace std;
 
 int main(void) {
-	// Define a table with 5 node pointers in it
-	
-	/*
-	node *S;
-	node *N;
-	node *E;
-	node *T;
-	node *F;
-	A[0] = S;
-	A[1] = N;
-	A[2] = E;
-	A[3] = T;
-	A[4] = F;
-	*/
 
 	GenForet();
+	cout << "Entire forest generated." << endl;
 
 	return EXIT_SUCCESS;
 }

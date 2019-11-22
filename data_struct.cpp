@@ -5,7 +5,8 @@ using namespace std;
 
 int main(void) {
 
-	GenForet();
+	int prof=0;
+	GenForet(prof);
 	cout << "Entire forest generated." << endl;
 
 	return EXIT_SUCCESS;

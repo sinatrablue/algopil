@@ -3,10 +3,10 @@
 
 typedef struct node Node;
 
-typedef struct plus {
+typedef struct union_p {
 	Node *left;
 	Node *right;
-}plus;
+}union_p;
 
 typedef struct conc {
 	Node *left;
@@ -31,7 +31,7 @@ typedef struct atom {
 
 struct node {
 	int clas;
-	plus *plus_t;
+	union_p *plus_t;
 	conc *conc_t;
 	fang *fang_t;
 	atom *atom_t;
@@ -63,7 +63,7 @@ node *GenFang(node *c){
 
 node *GenPlus(node *r, node *l) {
 	node *val = new node;
-	plus *p = new plus;
+	union_p *p = new union_p;
 	p->left=l;
 	p->right=r;
 	val->plus_t=p;
@@ -94,33 +94,32 @@ node *GenAtom(const char *a, int code, bool t){
 	delete at;
 }
 
-void printArbre(node *ptr){
-    int prof=0;
-    prof+=1;
+int printArbre(node *ptr, int prof){
 	std::string write;
+	prof+=1;
 
     for(int k=1;k<=prof;k++){
 		write += "...";
         std::cout << write ;
-
+		std::cout << prof;
         switch(ptr->clas){
             case 1 :
             std::cout << "> Conc" << std::endl;
-            printArbre(ptr->conc_t->left);
-            printArbre(ptr->conc_t->right);
+            printArbre(ptr->conc_t->left, prof);
+            printArbre(ptr->conc_t->right, prof);
 			break;
             case 2 :
             std::cout << "> Plus" << std::endl;
-            printArbre(ptr->plus_t->left);
-            printArbre(ptr->plus_t->right);
+            printArbre(ptr->plus_t->left, prof);
+            printArbre(ptr->plus_t->right, prof);
 			break;
             case 3 :
             std::cout << "> Ou" << std::endl;
-            printArbre(ptr->ou_t->child);
+            printArbre(ptr->ou_t->child, prof);
 			break;
             case 4 :
             std::cout << "> Star" << std::endl;
-            printArbre(ptr->fang_t->child);
+            printArbre(ptr->fang_t->child, prof);
 			break;
             case 5 :
             std::cout << "> Atom" << std::endl;
@@ -136,9 +135,10 @@ void printArbre(node *ptr){
         }
         prof-=1;
     }
+	return prof;
 }
 
-void GenForet()
+int GenForet(int prof)
 {
 	node *A[5];
 
@@ -165,14 +165,16 @@ void GenForet()
 	A[F] = { AF } ;
 	std::cout << "F generated" << std::endl;
 
-	printArbre(A[S]);
+	printArbre(A[S], prof);
 	std::cout << "=============================================================" << std::endl;
-	printArbre(A[N]);
+	printArbre(A[N], prof);
 	std::cout << "=============================================================" << std::endl;
-	printArbre(A[E]);
+	printArbre(A[E], prof);
 	std::cout << "=============================================================" << std::endl;
-	printArbre(A[T]);
+	printArbre(A[T], prof);
 	std::cout << "=============================================================" << std::endl;
-	printArbre(A[F]);
+	printArbre(A[F], prof);
 	std::cout << "=============================================================" << std::endl;
+
+	return prof;
 }

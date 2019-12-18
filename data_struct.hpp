@@ -95,45 +95,53 @@ node *GenAtom(const char *a, int code, bool t){
 }
 
 int printArbre(node *ptr, int prof){
-	std::string write;
 	prof+=1;
+	int k;
 
-    for(int k=1;k<=prof;k++){
-		write += "...";
+    for(k=1;  k<=prof; k++){
+		std::string write="";
+		for(int i=1; i<=prof; i++){
+			write += "......";
+		}
         std::cout << write ;
 		std::cout << prof;
         switch(ptr->clas){
             case 1 :
             std::cout << "> Conc" << std::endl;
             printArbre(ptr->conc_t->left, prof);
+			prof-=1;
             printArbre(ptr->conc_t->right, prof);
 			break;
             case 2 :
             std::cout << "> Plus" << std::endl;
             printArbre(ptr->plus_t->left, prof);
+			prof-=1;
             printArbre(ptr->plus_t->right, prof);
 			break;
             case 3 :
             std::cout << "> Ou" << std::endl;
             printArbre(ptr->ou_t->child, prof);
+			prof-=1;
 			break;
             case 4 :
             std::cout << "> Star" << std::endl;
             printArbre(ptr->fang_t->child, prof);
+			prof-=1;
 			break;
             case 5 :
-            std::cout << "> Atom" << std::endl;
+            std::cout << "> Atom             ";
             if(ptr->atom_t->is_term){
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Terminal" << std::endl;
             } else {
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Non-Terminal" << std::endl;
             }
+			prof-=1;
             break;
 			default:
 			std::cout << "Problème de type inconnu" << std::endl;
 			break;
         }
-        prof-=1;
+        //prof-=1;
     }
 	return prof;
 }

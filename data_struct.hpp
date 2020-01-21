@@ -132,16 +132,18 @@ int printArbre(node *ptr, int prof){
             std::cout << "> Atom             ";
             if(ptr->atom_t->is_term){
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Terminal" << std::endl;
+				prof-=1;
             } else {
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Non-Terminal" << std::endl;
+				//prof-=1;
             }
-			prof-=1;
+			//prof-=1;
             break;
 			default:
 			std::cout << "Problème de type inconnu" << std::endl;
 			break;
         }
-        //prof-=1;
+        prof-=1;
     }
 	return prof;
 }
@@ -162,15 +164,15 @@ int GenForet(int prof)
 	node *AT = GenConc(	GenFang( GenConc( GenAtom("F", 0, false), GenAtom(".", 0, false))), GenAtom("F", 0, false))	;
 	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",0,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
 
-	A[S] = { AS } ;
+	A[S] = AS ;
 	std::cout << "S generated" << std::endl;
-	A[N] = { AN } ;
+	A[N] = AN ;
 	std::cout << "N generated" << std::endl;
-	A[E] = { AE } ;
+	A[E] = AE ;
 	std::cout << "E generated" << std::endl;
-	A[T] = { AT } ;
+	A[T] = AT ;
 	std::cout << "T generated" << std::endl;
-	A[F] = { AF } ;
+	A[F] = AF ;
 	std::cout << "F generated" << std::endl;
 
 	printArbre(A[S], prof);

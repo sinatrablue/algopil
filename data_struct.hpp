@@ -98,7 +98,7 @@ int printArbre(node *ptr, int prof){
 	prof+=1;
 	int k;
 
-    for(k=1;  k<=prof; k++){
+    for(k=prof-1;  k<=prof; k++){
 		std::string write="";
 		for(int i=1; i<=prof; i++){
 			write += "......";
@@ -109,14 +109,16 @@ int printArbre(node *ptr, int prof){
             case 1 :
             std::cout << "> Conc" << std::endl;
             printArbre(ptr->conc_t->left, prof);
-			prof-=1;
+			//prof-=1;
             printArbre(ptr->conc_t->right, prof);
+			prof-=1;
 			break;
             case 2 :
             std::cout << "> Plus" << std::endl;
             printArbre(ptr->plus_t->left, prof);
-			prof-=1;
+			//prof-=1;
             printArbre(ptr->plus_t->right, prof);
+			prof-=1;
 			break;
             case 3 :
             std::cout << "> Ou" << std::endl;
@@ -135,7 +137,7 @@ int printArbre(node *ptr, int prof){
 				prof-=1;
             } else {
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Non-Terminal" << std::endl;
-				//prof-=1;
+				prof-=1;
             }
 			//prof-=1;
             break;
@@ -176,15 +178,15 @@ int GenForet(int prof)
 	std::cout << "F generated" << std::endl;
 
 	printArbre(A[S], prof);
-	std::cout << "=============================================================" << std::endl;
+	std::cout << "=============================================================================" << std::endl;
 	printArbre(A[N], prof);
-	std::cout << "=============================================================" << std::endl;
+	std::cout << "=============================================================================" << std::endl;
 	printArbre(A[E], prof);
-	std::cout << "=============================================================" << std::endl;
+	std::cout << "=============================================================================" << std::endl;
 	printArbre(A[T], prof);
-	std::cout << "=============================================================" << std::endl;
+	std::cout << "=============================================================================" << std::endl;
 	printArbre(A[F], prof);
-	std::cout << "=============================================================" << std::endl;
+	std::cout << "=============================================================================" << std::endl;
 
 	return prof;
 }

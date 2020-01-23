@@ -9,5 +9,11 @@ int main(void) {
 	GenForet(prof);
 	cout << "Entire forest generated." << endl;
 
+	string phrase = "A='B'+C";
+	string::size_type it_phrase=0;	
+	string code;
+	int action;
+	char caract;
+
 	return EXIT_SUCCESS;
 }

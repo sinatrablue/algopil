@@ -178,15 +178,51 @@ int GenForet(int prof)
 	std::cout << "F generated" << std::endl;
 
 	printArbre(A[S], prof);
-	std::cout << "=============================================================================" << std::endl;
+	std::cout << "============================================================================================================================================" << std::endl;
 	printArbre(A[N], prof);
-	std::cout << "=============================================================================" << std::endl;
+	std::cout << "============================================================================================================================================" << std::endl;
 	printArbre(A[E], prof);
-	std::cout << "=============================================================================" << std::endl;
+	std::cout << "============================================================================================================================================" << std::endl;
 	printArbre(A[T], prof);
-	std::cout << "=============================================================================" << std::endl;
+	std::cout << "============================================================================================================================================" << std::endl;
 	printArbre(A[F], prof);
-	std::cout << "=============================================================================" << std::endl;
+	std::cout << "============================================================================================================================================" << std::endl;
 
 	return prof;
+}
+
+ /*   READ CHARACTERS IN A STRING ONE BY ONE
+std::string str = ???;
+for(char& c : str) {
+    do_things_with(c);
+}
+
+std::string str = ???;
+for(std::string::iterator it = str.begin(); it != str.end(); ++it) {
+    do_things_with(*it);
+}
+
+std::string str = ???;
+for(std::string::size_type i = 0; i < str.size(); ++i) {
+    do_things_with(str[i]);
+}
+*/
+
+void scan(std::string phrase, std::string::size_type &it_phrase, std::string &code, int &action, char &caract){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
+	for(std::string::size_type i = it_phrase; i < phrase.size(); ++i) {
+		if(isalpha(phrase[i]) && phrase[i-1]=='\'' && phrase[i+1]=='\''){
+			code = "ELTER";
+			action = 1;
+			caract = phrase[i];
+			it_phrase = i;
+			return; // on sort de la fonction si on trouve qu'on veut, pas besoin de laisser la boucle for se terminer
+		}
+		else if(isalpha(phrase[i]) && phrase[i-1]!='\''){   // pas besoin de tester avant et après, si l'un est faux ça suffit à savoir
+			code = "IDNTER";
+			action = 0;
+			caract = phrase[i];
+			it_phrase = i;
+			return;
+		}
+	}
 }

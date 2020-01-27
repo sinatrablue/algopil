@@ -226,3 +226,64 @@ void scan(std::string phrase, std::string::size_type &it_phrase, std::string &co
 		}
 	}
 }
+
+
+bool Analyse(node *ptr){
+	bool res_analys;
+	switch(ptr->clas){
+		case 1: 
+		if (Analyse(ptr->conc_t->left)){
+			Analyse(ptr->conc_t->right);
+		}
+		else{
+			return false;
+		}
+		break;
+		case 2:
+		if (Analyse(ptr->plus_t->left)){
+			return true;
+		}
+		else{
+			Analyse(ptr->plus_t->left);
+		}
+		break;
+		case 3:
+		while (Analyse(ptr->fang_t->child)){
+			return true;
+		}
+		
+		break;
+		case 4:
+		while (Analyse(ptr->fang_t->child)){
+			return true;
+		}
+		break;
+		case 5:
+		
+		if(ptr->atom_t->is_term){
+			/*if(Analyse(ptr->atom_t->cod==code))*/
+			if(ptr->atom_t->cod) {
+				
+				return true;
+			  	//scan();
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			/*if(Analyse(ptr->atom_t->cod)) */
+			if(ptr->atom_t->cod) {
+		
+				return true;
+			}
+			else{
+				return false;
+			}
+			
+		}
+		break;
+		
+
+	}
+}

@@ -14,8 +14,20 @@ int main(void) {
 	string code;
 	int action;
 	char caract;
+	// test de scan
+	/*
 	scan(phrase, it_phrase, code, action, caract);
 	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+	scan(phrase, it_phrase, code, action, caract);
+	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+	scan(phrase, it_phrase, code, action, caract);
+	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+	scan(phrase, it_phrase, code, action, caract);
+	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+	scan(phrase, it_phrase, code, action, caract);
+	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+	*/
+
 
 	return EXIT_SUCCESS;
 }

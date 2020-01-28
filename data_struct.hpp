@@ -208,21 +208,26 @@ for(std::string::size_type i = 0; i < str.size(); ++i) {
 }
 */
 
+// Procédure scan
+// fonctionne mais doit être appelée un nombre de fois équivalent à la taille de la phrase, si on l'appelle plus elle va faire plein de fois le dernier atome. 
 void scan(std::string phrase, std::string::size_type &it_phrase, std::string &code, int &action, char &caract){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
-	for(std::string::size_type i = it_phrase; i < phrase.size(); ++i) {
-		if(isalpha(phrase[i]) && phrase[i-1]=='\'' && phrase[i+1]=='\''){
-			code = "ELTER";
+	for(std::string::size_type i = it_phrase; i < phrase.size(); ++i) {  // On itère dans les caractères de la phrase à tester
+		if(isalpha(phrase[i]) && phrase[i-1]=='\'' && phrase[i+1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
+			code = "ELTER"; // c'est terminal
 			action = 1;
 			caract = phrase[i];
-			it_phrase = i;
+			it_phrase = i+1;
 			return; // on sort de la fonction si on trouve qu'on veut, pas besoin de laisser la boucle for se terminer
 		}
-		else if(isalpha(phrase[i]) && phrase[i-1]!='\''){   // pas besoin de tester avant et après, si l'un est faux ça suffit à savoir
-			code = "IDNTER";
+		else if(isalpha(phrase[i]) && phrase[i-1]!='\''){   // Sinon si c'est une lettre mais sans quotes
+			code = "IDNTER"; // pas terminal
 			action = 0;
 			caract = phrase[i];
-			it_phrase = i;
+			it_phrase = i+1;
 			return;
+		} else { // Si ce n'est pas une lettre on veut passer à la suite
+			it_phrase += 1; // On incrémente l'itérateur de la phrase
+			scan(phrase, it_phrase, code, action, caract); // appel récursif de la fonction (ainsi de suite jusqu'à trouver une lettre donc)
 		}
 	}
 }
@@ -235,35 +240,37 @@ bool Analyse(node *ptr){
 		if (Analyse(ptr->conc_t->left)){
 			Analyse(ptr->conc_t->right);
 		}
-		else{
+		else {
 			return false;
 		}
 		break;
+
 		case 2:
 		if (Analyse(ptr->plus_t->left)){
 			return true;
 		}
-		else{
+		else {
 			Analyse(ptr->plus_t->left);
 		}
 		break;
+
 		case 3:
 		while (Analyse(ptr->fang_t->child)){
 			return true;
 		}
-		
 		break;
+
 		case 4:
 		while (Analyse(ptr->fang_t->child)){
 			return true;
 		}
 		break;
+
 		case 5:
 		
 		if(ptr->atom_t->is_term){
-			/*if(Analyse(ptr->atom_t->cod==code))*/
+			// if(Analyse(ptr->atom_t->cod==code))
 			if(ptr->atom_t->cod) {
-				
 				return true;
 			  	//scan();
 			}
@@ -271,13 +278,13 @@ bool Analyse(node *ptr){
 				return false;
 			}
 		}
-		else{
-			/*if(Analyse(ptr->atom_t->cod)) */
+		else {
+			// if(Analyse(ptr->atom_t->cod)) //
 			if(ptr->atom_t->cod) {
 		
 				return true;
 			}
-			else{
+			else {
 				return false;
 			}
 			

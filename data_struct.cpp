@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(void) {
+int main(void){
 
 	//int prof=0;
 	//GenForet(prof);
@@ -14,6 +14,14 @@ int main(void) {
 	string code;
 	int action;
 	char caract;
+
+	for(std::string::size_type i = it_phrase; i < phrase.size(); i++){  // On itère dans les caractères de la phrase à tester
+		scan(phrase, it_phrase, code, action, caract); // On scanne le caractère i de la phrase et la fonction passe automatiquement au suivant pour l'appel suivant
+		cout << it_phrase << " " << code << " " << action << " " << caract << endl;
+		
+	}
+
+
 	// test de scan
 	/*
 	scan(phrase, it_phrase, code, action, caract);

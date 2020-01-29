@@ -26,8 +26,7 @@ typedef struct atom {
 	int cod;  // 0 ou 1
 	const char *action;
 	Node *child;
-}atom
-;
+}atom;
 
 struct node {
 	int clas;
@@ -49,7 +48,7 @@ node *GenConc(node *r, node *l) {
 	val->clas=1;
 	return val;
 	delete c;
-}
+};
 
 node *GenFang(node *c){
 	node *val = new node;
@@ -59,7 +58,7 @@ node *GenFang(node *c){
 	val->fang_t=f;
 	return val;
 	delete f;
-}
+};
 
 node *GenPlus(node *r, node *l) {
 	node *val = new node;
@@ -70,7 +69,7 @@ node *GenPlus(node *r, node *l) {
 	val->clas=2;
 	return val;
 	delete p;
-}
+};
 
 node *GenOu(node *c){
 	node *val = new node;
@@ -80,7 +79,7 @@ node *GenOu(node *c){
 	val->ou_t=o;
 	return val;
 	delete o;
-}
+};
 
 node *GenAtom(const char *a, int code, bool t){
 	node *val = new node;
@@ -92,7 +91,7 @@ node *GenAtom(const char *a, int code, bool t){
 	val->atom_t=at;
 	return val;
 	delete at;
-}
+};
 
 int printArbre(node *ptr, int prof){
 	prof+=1;
@@ -109,14 +108,12 @@ int printArbre(node *ptr, int prof){
             case 1 :
             std::cout << "> Conc" << std::endl;
             printArbre(ptr->conc_t->left, prof);
-			//prof-=1;
             printArbre(ptr->conc_t->right, prof);
 			prof-=1;
 			break;
             case 2 :
             std::cout << "> Plus" << std::endl;
             printArbre(ptr->plus_t->left, prof);
-			//prof-=1;
             printArbre(ptr->plus_t->right, prof);
 			prof-=1;
 			break;
@@ -139,7 +136,6 @@ int printArbre(node *ptr, int prof){
                 std::cout << "Code = " << ptr->atom_t->cod << " Action = " << ptr->atom_t->action << " est Non-Terminal" << std::endl;
 				prof-=1;
             }
-			//prof-=1;
             break;
 			default:
 			std::cout << "Problème de type inconnu" << std::endl;
@@ -148,7 +144,7 @@ int printArbre(node *ptr, int prof){
         prof-=1;
     }
 	return prof;
-}
+};
 
 int GenForet(int prof)
 {
@@ -189,9 +185,9 @@ int GenForet(int prof)
 	std::cout << "============================================================================================================================================" << std::endl;
 
 	return prof;
-}
+};
 
- /*   READ CHARACTERS IN A STRING ONE BY ONE
+ /*  Antisèche : READ CHARACTERS IN A STRING ONE BY ONE
 std::string str = ???;
 for(char& c : str) {
     do_things_with(c);
@@ -211,26 +207,22 @@ for(std::string::size_type i = 0; i < str.size(); ++i) {
 // Procédure scan
 // fonctionne mais doit être appelée un nombre de fois équivalent à la taille de la phrase, si on l'appelle plus elle va faire plein de fois le dernier atome. 
 void scan(std::string phrase, std::string::size_type &it_phrase, std::string &code, int &action, char &caract){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
-	for(std::string::size_type i = it_phrase; i < phrase.size(); ++i) {  // On itère dans les caractères de la phrase à tester
-		if(isalpha(phrase[i]) && phrase[i-1]=='\'' && phrase[i+1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
-			code = "ELTER"; // c'est terminal
-			action = 1;
-			caract = phrase[i];
-			it_phrase = i+1;
-			return; // on sort de la fonction si on trouve qu'on veut, pas besoin de laisser la boucle for se terminer
-		}
-		else if(isalpha(phrase[i]) && phrase[i-1]!='\''){   // Sinon si c'est une lettre mais sans quotes
-			code = "IDNTER"; // pas terminal
-			action = 0;
-			caract = phrase[i];
-			it_phrase = i+1;
-			return;
-		} else { // Si ce n'est pas une lettre on veut passer à la suite
-			it_phrase += 1; // On incrémente l'itérateur de la phrase
-			scan(phrase, it_phrase, code, action, caract); // appel récursif de la fonction (ainsi de suite jusqu'à trouver une lettre donc)
-		}
+	if(isalpha(phrase[it_phrase]) && phrase[it_phrase-1]=='\'' && phrase[it_phrase+1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
+		code = "ELTER"; // c'est terminal
+		action = 1;
+		caract = phrase[it_phrase];
+		it_phrase +=1;
 	}
-}
+	else if(isalpha(phrase[it_phrase]) && phrase[it_phrase-1]!='\''){   // Sinon si c'est une lettre mais sans quotes
+		code = "IDNTER"; // pas terminal
+		action = 0;
+		caract = phrase[it_phrase];
+		it_phrase +=1;
+	}
+	else {
+		it_phrase +=1;
+	}
+};
 
 
 bool Analyse(node *ptr){
@@ -239,8 +231,7 @@ bool Analyse(node *ptr){
 		case 1: 
 		if (Analyse(ptr->conc_t->left)){
 			Analyse(ptr->conc_t->right);
-		}
-		else {
+		} else {
 			return false;
 		}
 		break;
@@ -248,8 +239,7 @@ bool Analyse(node *ptr){
 		case 2:
 		if (Analyse(ptr->plus_t->left)){
 			return true;
-		}
-		else {
+		} else {
 			Analyse(ptr->plus_t->left);
 		}
 		break;
@@ -273,24 +263,18 @@ bool Analyse(node *ptr){
 			if(ptr->atom_t->cod) {
 				return true;
 			  	//scan();
-			}
-			else{
+			} else {
 				return false;
 			}
-		}
-		else {
-			// if(Analyse(ptr->atom_t->cod)) //
+		} else {
+			// if(Analyse(ptr->atom_t->cod))
 			if(ptr->atom_t->cod) {
-		
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 			
 		}
 		break;
-		
-
 	}
-}
+};

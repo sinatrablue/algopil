@@ -5,9 +5,34 @@ using namespace std;
 
 int main(void){
 
-	//int prof=0;
-	//GenForet(prof);
-	//cout << "Entire forest generated." << endl;
+	node *A[5];
+
+	int S = 0;
+	int N = 1;
+	int E = 2;
+	int T = 3;
+	int F = 4;
+	
+	node *AS = GenConc(	GenFang( GenConc( GenConc( GenConc( GenAtom("N",0,false),GenAtom("->",0,true)),	GenAtom("E",0,false)),GenAtom(",",1,true))),GenAtom(";",0,true));
+	node *AN = GenAtom("IDNTER", 0, false);
+	node *AE = GenConc(	GenFang( GenConc( GenAtom("T", 0, false), GenAtom("+", 0, false))), GenAtom("+", 0, false))	;
+	node *AT = GenConc(	GenFang( GenConc( GenAtom("F", 0, false), GenAtom(".", 0, false))), GenAtom("F", 0, false))	;
+	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",0,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
+
+	A[S] = AS ;
+	std::cout << "S generated" << std::endl;
+	A[N] = AN ;
+	std::cout << "N generated" << std::endl;
+	A[E] = AE ;
+	std::cout << "E generated" << std::endl;
+	A[T] = AT ;
+	std::cout << "T generated" << std::endl;
+	A[F] = AF ;
+	std::cout << "F generated" << std::endl;
+
+	int prof=0;
+	GenForet(prof, S, N, E, T, F, A);
+	cout << "Entire forest generated." << endl;
 
 	string phrase = "A='B'+C";
 	string::size_type it_phrase=0;
@@ -15,27 +40,19 @@ int main(void){
 	int action;
 	char caract;
 
+	if(Analyse(A[S])){
+		cout << "Résultat Analyse()  -->  TRUE" << endl;
+	} else {
+		cout << "Résultat Analyse()  -->  TRUE" << endl;
+	}
+
+	/*
 	for(std::string::size_type i = it_phrase; i < phrase.size(); i++){  // On itère dans les caractères de la phrase à tester
 		scan(phrase, it_phrase, code, action, caract); // On scanne le caractère i de la phrase et la fonction passe automatiquement au suivant pour l'appel suivant
 		cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-		
+		// Print trop de fois certains trucs parce que l'affichage n'est pas dans la fonction mais c'est juste
 	}
-
-
-	// test de scan
-	/*
-	scan(phrase, it_phrase, code, action, caract);
-	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-	scan(phrase, it_phrase, code, action, caract);
-	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-	scan(phrase, it_phrase, code, action, caract);
-	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-	scan(phrase, it_phrase, code, action, caract);
-	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-	scan(phrase, it_phrase, code, action, caract);
-	cout << it_phrase << " " << code << " " << action << " " << caract << endl;
 	*/
-
 
 	return EXIT_SUCCESS;
 }

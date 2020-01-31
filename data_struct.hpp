@@ -146,33 +146,8 @@ int printArbre(node *ptr, int prof){
 	return prof;
 };
 
-int GenForet(int prof)
+int GenForet(int prof, int S, int N, int E, int T, int F, node* A[])
 {
-	node *A[5];
-
-	int S = 0;
-	int N = 1;
-	int E = 2;
-	int T = 3;
-	int F = 4;
-	
-	node *AS = GenConc(	GenFang( GenConc( GenConc( GenConc( GenAtom("N",0,false),GenAtom("->",0,true)),	GenAtom("E",0,false)),GenAtom(",",1,true))),GenAtom(";",0,true));
-	node *AN = GenAtom("IDNTER", 0, false);
-	node *AE = GenConc(	GenFang( GenConc( GenAtom("T", 0, false), GenAtom("+", 0, false))), GenAtom("+", 0, false))	;
-	node *AT = GenConc(	GenFang( GenConc( GenAtom("F", 0, false), GenAtom(".", 0, false))), GenAtom("F", 0, false))	;
-	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",0,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
-
-	A[S] = AS ;
-	std::cout << "S generated" << std::endl;
-	A[N] = AN ;
-	std::cout << "N generated" << std::endl;
-	A[E] = AE ;
-	std::cout << "E generated" << std::endl;
-	A[T] = AT ;
-	std::cout << "T generated" << std::endl;
-	A[F] = AF ;
-	std::cout << "F generated" << std::endl;
-
 	printArbre(A[S], prof);
 	std::cout << "============================================================================================================================================" << std::endl;
 	printArbre(A[N], prof);
@@ -219,9 +194,6 @@ void scan(std::string phrase, std::string::size_type &it_phrase, std::string &co
 		caract = phrase[it_phrase];
 		it_phrase +=1;
 	}
-	else {
-		it_phrase +=1;
-	}
 };
 
 
@@ -259,7 +231,6 @@ bool Analyse(node *ptr){
 		case 5:
 		
 		if(ptr->atom_t->is_term){
-			// if(Analyse(ptr->atom_t->cod==code))
 			if(ptr->atom_t->cod) {
 				return true;
 			  	//scan();
@@ -267,7 +238,6 @@ bool Analyse(node *ptr){
 				return false;
 			}
 		} else {
-			// if(Analyse(ptr->atom_t->cod))
 			if(ptr->atom_t->cod) {
 				return true;
 			} else {

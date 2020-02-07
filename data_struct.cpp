@@ -5,6 +5,9 @@ using namespace std;
 
 int main(void){
 
+	/*  ---------------------------------------------------------
+	PHASE D'INITIATION ET DÉCLARATIONS */
+	// Déclarations bougées dans le main depuis GenForet parce qu'on veut se servir de ces noeuds et les passer à Analyse() ensuite
 	node *A[5];
 
 	int S = 0;
@@ -33,26 +36,29 @@ int main(void){
 	int prof=0;
 	GenForet(prof, S, N, E, T, F, A);
 	cout << "Entire forest generated." << endl;
+	/* ------------------------------------------------------------- */
 
-	string phrase = "A='B'+C";
+	string phrase = "S0->['a'].'b'";
 	string::size_type it_phrase=0;
 	string code;
 	int action;
 	char caract;
 
-	if(Analyse(A[S])){
-		cout << "Résultat Analyse()  -->  TRUE" << endl;
-	} else {
-		cout << "Résultat Analyse()  -->  TRUE" << endl;
+	scan(phrase, it_phrase, code, action, caract); // On scanne le premier caractère de la phrase pour commencer
+	// Analyse de la phrase
+	int i=0;
+	bool res=false;
+	while(i<6 && res=false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
+		Analyse(A[i], i, res, code, action, caract);
+		i++;
 	}
 
-	/*
-	for(std::string::size_type i = it_phrase; i < phrase.size(); i++){  // On itère dans les caractères de la phrase à tester
-		scan(phrase, it_phrase, code, action, caract); // On scanne le caractère i de la phrase et la fonction passe automatiquement au suivant pour l'appel suivant
-		cout << it_phrase << " " << code << " " << action << " " << caract << endl;
-		// Print trop de fois certains trucs parce que l'affichage n'est pas dans la fonction mais c'est juste
+	// Affichage final
+	if(res){
+		cout << "OK, la phrase appartient bien à la grammaire" << endl;
+	} else {
+		cout << "NOT OK, la phrase est étrangère à la grammaire" << endl;
 	}
-	*/
 
 	return EXIT_SUCCESS;
 }

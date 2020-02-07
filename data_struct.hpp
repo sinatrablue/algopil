@@ -25,7 +25,6 @@ typedef struct atom {
 	bool is_term;
 	int cod;  // 0 ou 1
 	const char *action;
-	Node *child;
 }atom;
 
 struct node {

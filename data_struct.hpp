@@ -180,58 +180,59 @@ for(std::string::size_type i = 0; i < str.size(); ++i) {
 
 // Procédure scan
 // fonctionne mais doit être appelée un nombre de fois équivalent à la taille de la phrase, si on l'appelle plus elle va faire plein de fois le dernier atome. 
-void scan(std::string phrase, std::string::size_type &it_phrase, std::string &code, int &action, char &caract){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
+void scan(std::string phrase, std::string::size_type &it_phrase, int &code, std::string &action){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
 	if(isalpha(phrase[it_phrase]) && phrase[it_phrase-1]=='\'' && phrase[it_phrase+1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
-		code = "ELTER"; // c'est terminal
-		action = 1;
-		caract = phrase[it_phrase];
+		action = phrase[it_phrase]; // c'est terminal
+		code = 1;
 		it_phrase +=1;
 	}
-	else if(isalpha(phrase[it_phrase]) && phrase[it_phrase-1]!='\''){   // Sinon si c'est une lettre mais sans quotes
-		code = "IDNTER"; // pas terminal
-		action = 0;
-		caract = phrase[it_phrase];
+	else if(phrase[it_phrase]!='\''){   // Sinon si c'est un vrai caractère et pas un quote, et qu'il n'a donc pas de quote
+		action = phrase[it_phrase]; // pas terminal
+		code = 0;
 		it_phrase +=1;
+	} else {
+		it_phrase +=1;	// Sinon, c'est qu'on est en train de lire un quote, donc on passe direct au suivant parce que ce n'est pas intéressant à lire
+		scan(phrase, it_phrase, code, action);
 	}
 };
 
 
-bool Analyse(node *ptr){
+bool Analyse(node *ptr, int &i){
 	bool res_analys;
 	switch(ptr->clas){
 		case 1: 
-		if (Analyse(ptr->conc_t->left)){
-			Analyse(ptr->conc_t->right);
+		if (Analyse(ptr->conc_t->left, i)){
+			Analyse(ptr->conc_t->right, i);
 		} else {
 			return false;
 		}
 		break;
 
 		case 2:
-		if (Analyse(ptr->plus_t->left)){
+		if (Analyse(ptr->plus_t->left, i)){
 			return true;
 		} else {
-			Analyse(ptr->plus_t->left);
+			Analyse(ptr->plus_t->left, i);
 		}
 		break;
 
 		case 3:
-		while (Analyse(ptr->fang_t->child)){
+		while (Analyse(ptr->fang_t->child, i)){
 			return true;
 		}
 		break;
 
 		case 4:
-		while (Analyse(ptr->fang_t->child)){
+		while (Analyse(ptr->fang_t->child, i)){
 			return true;
 		}
 		break;
 
 		case 5:
-		
 		if(ptr->atom_t->is_term){
 			if(ptr->atom_t->cod) {
 				return true;
+				i=0;
 			  	//scan();
 			} else {
 				return false;
@@ -239,6 +240,7 @@ bool Analyse(node *ptr){
 		} else {
 			if(ptr->atom_t->cod) {
 				return true;
+				i=0;
 			} else {
 				return false;
 			}

@@ -40,16 +40,15 @@ int main(void){
 
 	string phrase = "S0->['a'].'b'";
 	string::size_type it_phrase=0;
-	string code;
-	int action;
-	char caract;
+	int code;
+	string action;
 
-	scan(phrase, it_phrase, code, action, caract); // On scanne le premier caractère de la phrase pour commencer
+	scan(phrase, it_phrase, code, action); // On scanne le premier caractère de la phrase pour commencer
 	// Analyse de la phrase
 	int i=0;
 	bool res=false;
-	while(i<6 && res=false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
-		Analyse(A[i], i, res, code, action, caract);
+	while(i<6 && res==false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
+		res = Analyse(A[i], i);
 		i++;
 	}
 

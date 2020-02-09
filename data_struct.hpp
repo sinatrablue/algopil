@@ -212,7 +212,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, i
 		if (Analyse(ptr->plus_t->left, phrase, it_phrase, code, action)){
 			return true;
 		} else {
-			Analyse(ptr->plus_t->left, phrase, it_phrase, code, action);
+			Analyse(ptr->plus_t->right, phrase, it_phrase, code, action);
 		}
 		break;
 
@@ -229,10 +229,12 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, i
 		break;
 
 		case 5:
+		std::cout << "On rentre bien dans Atome" << std::endl;
 		if(ptr->atom_t->is_term){
 			if(ptr->atom_t->cod) {
 				return true;
 			  	scan(phrase, it_phrase, code, action);
+				std::cout << "On a scanné" << std::endl;
 			} else {
 				return false;
 			}

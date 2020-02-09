@@ -51,7 +51,7 @@ int main(void){
 	}*/
 	for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
 		Analyse(A[i], phrase, it_phrase, code, action);
-		std::cout << action <<endl;
+		std::cout << action << endl;
 	}
 
 	// Affichage final
@@ -60,6 +60,14 @@ int main(void){
 	} else {
 		std::cout << "NOT OK, la phrase est étrangère à la grammaire" << endl;
 	}
+
+	// test scan
+	scan(phrase, it_phrase, code, action);
+	cout << action << endl;
+	scan(phrase, it_phrase, code, action);
+	cout << action << endl;
+	scan(phrase, it_phrase, code, action);
+	cout << action << endl;
 
 	return EXIT_SUCCESS;
 }

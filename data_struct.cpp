@@ -46,14 +46,19 @@ int main(void){
 	scan(phrase, it_phrase, code, action); // On scanne le premier caractère de la phrase pour commencer
 	// Analyse de la phrase
 	int i=0;
-	bool res=false;
-	while(i<6 && res==false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
+	//bool res=false;
+	/*while(i<6 && res==false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
 		res = Analyse(A[i], i);
 		i++;
+	}*/
+	for (i=0;i<5;i++){//j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
+		Analyse(A[i]);
+		cout<<action<<endl;
 	}
 
 	// Affichage final
-	if(res){
+	//if(res)
+	if (Analyse){
 		cout << "OK, la phrase appartient bien à la grammaire" << endl;
 	} else {
 		cout << "NOT OK, la phrase est étrangère à la grammaire" << endl;

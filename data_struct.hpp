@@ -197,33 +197,33 @@ void scan(std::string phrase, std::string::size_type &it_phrase, int &code, std:
 };
 
 //bool Analyse(node *ptr, int &i) // j'ai pas compris l'interet de i ici
-bool Analyse(node *ptr){
+bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, int &code, std::string &action){
 	bool res_analys;
 	switch(ptr->clas){
 		case 1: 
-		if (Analyse(ptr->conc_t->left)){
-			Analyse(ptr->conc_t->right);
+		if (Analyse(ptr->conc_t->left, phrase, it_phrase, code, action)){
+			Analyse(ptr->conc_t->right, phrase, it_phrase, code, action);
 		} else {
 			return false;
 		}
 		break;
 
 		case 2:
-		if (Analyse(ptr->plus_t->left)){
+		if (Analyse(ptr->plus_t->left, phrase, it_phrase, code, action)){
 			return true;
 		} else {
-			Analyse(ptr->plus_t->left);
+			Analyse(ptr->plus_t->left, phrase, it_phrase, code, action);
 		}
 		break;
 
 		case 3:
-		while (Analyse(ptr->fang_t->child)){
+		while (Analyse(ptr->fang_t->child, phrase, it_phrase, code, action)){
 			return true;
 		}
 		break;
 
 		case 4:
-		while (Analyse(ptr->fang_t->child)){
+		while (Analyse(ptr->fang_t->child, phrase, it_phrase, code, action)){
 			return true;
 		}
 		break;
@@ -232,16 +232,13 @@ bool Analyse(node *ptr){
 		if(ptr->atom_t->is_term){
 			if(ptr->atom_t->cod) {
 				return true;
-				//i=0;
-				scan;
-			
+			  	scan(phrase, it_phrase, code, action);
 			} else {
 				return false;
 			}
 		} else {
 			if(ptr->atom_t->cod) {
 				return true;
-				//i=0;
 			} else {
 				return false;
 			}

@@ -45,7 +45,7 @@ int main(void){
 	string action;
 
 	// test de scan
-	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	/*scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
 	cout << action << endl;
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
 	cout << action << endl;
@@ -56,7 +56,7 @@ int main(void){
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
 	cout << action << endl;
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
-	cout << action << endl;
+	cout << action << endl;*/
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
 	cout << action << endl;
 

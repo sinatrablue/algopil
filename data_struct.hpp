@@ -219,34 +219,42 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		break;
 
 		case 3:
-		while (Analyse(ptr->fang_t->child, phrase, it_phrase, it_bis, code, action)){
-			return true;
-		}
+		res_analys =true;
+		Analyse(ptr->ou_t->child, phrase, it_phrase, it_bis, code, action);
+		return (res_analys);
+
 		break;
 
 		case 4:
-		while (Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action)){
-			return true;
+		res_analys =true;
+		while (ptr->clas==4){
+			Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action);
+			return (res_analys);
+			
 		}
 		break;
 
 		case 5:
 		std::cout << "On rentre bien dans Atome" << std::endl;
 		if(ptr->atom_t->is_term){
-			if(ptr->atom_t->cod) {
-				return true;
+			if(ptr->atom_t->cod==code) {//comparer le code trouvé dans l'arbre et celui de scan
+				res_analys=true;
 			  	scan(phrase, it_phrase, it_bis, code, action);
-				std::cout << "On a scanné" << std::endl;
+				//std::cout << "On a scanné" << std::endl; verification
+				//std::cout<<action<<std::endl; verification
 			} else {
-				return false;
+				res_analys=true;
 			}
 		} else {
-			if(ptr->atom_t->cod) {
-				return true;
+			if(ptr->atom_t->cod==code){
+				res_analys=true;
+			//std::cout <<"non terminal"<<std::endl; verification
 			} else {
-				return false;
+				res_analys=false;
 			}
 		}
+		return (res_analys);
 		break;
+		
 	}
 };

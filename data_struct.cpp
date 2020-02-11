@@ -34,23 +34,39 @@ int main(void){
 	std::cout << "F generated" << std::endl;
 
 	int prof=0;
-	GenForet(prof, S, N, E, T, F, A);
-	std::cout << "Entire forest generated." << endl;
+	//GenForet(prof, S, N, E, T, F, A);
+	//std::cout << "Entire forest generated." << endl;
 	/* ------------------------------------------------------------- */
 
-	string phrase = "S0->['a'].'b'";
+	string phrase = "|S0|->|[|'a'|]|.|'b'|";
 	string::size_type it_phrase=0;
+	string::size_type it_bis=0;
 	int code;
 	string action;
 
-	scan(phrase, it_phrase, code, action); // On scanne le premier caractère de la phrase pour commencer
+	// test de scan
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	cout << action << endl;
+
 	// Analyse de la phrase
 	/*while(i<6 && res==false){  // Tant qu'on a pas testé sur tous les arbres ou que tous les atomes n'ont pas été vérifiés comme OK
 		res = Analyse(A[i], i);
 		i++;
 	}*/
 	for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
-		Analyse(A[i], phrase, it_phrase, code, action);
+		Analyse(A[i], phrase, it_phrase, it_bis, code, action);
 		std::cout << action << endl;
 	}
 
@@ -60,14 +76,6 @@ int main(void){
 	} else {
 		std::cout << "NOT OK, la phrase est étrangère à la grammaire" << endl;
 	}
-
-	// test scan
-	scan(phrase, it_phrase, code, action);
-	cout << action << endl;
-	scan(phrase, it_phrase, code, action);
-	cout << action << endl;
-	scan(phrase, it_phrase, code, action);
-	cout << action << endl;
 
 	return EXIT_SUCCESS;
 }

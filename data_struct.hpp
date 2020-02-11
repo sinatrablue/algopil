@@ -179,51 +179,53 @@ for(std::string::size_type i = 0; i < str.size(); ++i) {
 */
 
 // Procédure scan
-// fonctionne mais doit être appelée un nombre de fois équivalent à la taille de la phrase, si on l'appelle plus elle va faire plein de fois le dernier atome. 
-void scan(std::string phrase, std::string::size_type &it_phrase, int &code, std::string &action){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
-	if(isalpha(phrase[it_phrase]) && phrase[it_phrase-1]=='\'' && phrase[it_phrase+1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
-		action = phrase[it_phrase]; // c'est terminal
-		code = 1;
-		it_phrase +=1;
-	}
-	else if(phrase[it_phrase]!='\''){   // Sinon si c'est un vrai caractère et pas un quote, et qu'il n'a donc pas de quote
-		action = phrase[it_phrase]; // pas terminal
-		code = 0;
-		it_phrase +=1;
-	} else {
-		it_phrase +=1;	// Sinon, c'est qu'on est en train de lire un quote, donc on passe direct au suivant parce que ce n'est pas intéressant à lire
-		scan(phrase, it_phrase, code, action);
+void scan(std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
+	if(phrase[it_phrase] == '|'){
+		it_phrase+=1;
+		it_bis = it_phrase;
+		while(phrase[it_phrase] != '|'){ it_phrase += 1; }
+		if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
+			action = phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1);
+			code = 1;
+			//it_phrase +=1;
+			//it_bis = it_phrase;
+		}
+		else {   // Sinon si c'est un vrai caractère et pas un quote, et qu'il n'a donc pas de quote
+			action = phrase.substr(it_bis,(it_phrase-it_bis));
+			code = 0;
+			//it_phrase +=1;
+			//it_bis = it_phrase;
+		}
 	}
 };
 
-//bool Analyse(node *ptr, int &i) // j'ai pas compris l'interet de i ici
-bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, int &code, std::string &action){
+bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action){
 	bool res_analys;
 	switch(ptr->clas){
 		case 1: 
-		if (Analyse(ptr->conc_t->left, phrase, it_phrase, code, action)){
-			Analyse(ptr->conc_t->right, phrase, it_phrase, code, action);
+		if (Analyse(ptr->conc_t->left, phrase, it_phrase, it_bis, code, action)){
+			Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action);
 		} else {
 			return false;
 		}
 		break;
 
 		case 2:
-		if (Analyse(ptr->plus_t->left, phrase, it_phrase, code, action)){
+		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action)){
 			return true;
 		} else {
-			Analyse(ptr->plus_t->right, phrase, it_phrase, code, action);
+			Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action);
 		}
 		break;
 
 		case 3:
-		while (Analyse(ptr->fang_t->child, phrase, it_phrase, code, action)){
+		while (Analyse(ptr->fang_t->child, phrase, it_phrase, it_bis, code, action)){
 			return true;
 		}
 		break;
 
 		case 4:
-		while (Analyse(ptr->fang_t->child, phrase, it_phrase, code, action)){
+		while (Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action)){
 			return true;
 		}
 		break;
@@ -233,7 +235,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, i
 		if(ptr->atom_t->is_term){
 			if(ptr->atom_t->cod) {
 				return true;
-			  	scan(phrase, it_phrase, code, action);
+			  	scan(phrase, it_phrase, it_bis, code, action);
 				std::cout << "On a scanné" << std::endl;
 			} else {
 				return false;
@@ -244,7 +246,6 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, i
 			} else {
 				return false;
 			}
-			
 		}
 		break;
 	}

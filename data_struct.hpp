@@ -187,14 +187,18 @@ void scan(std::string phrase, std::string::size_type &it_phrase, std::string::si
 		if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
 			action = phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1);
 			code = 1;
-			//it_phrase +=1;
-			//it_bis = it_phrase;
+		}
+		else if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\'' && std::any_of(std::begin(phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1)), std::end(phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1)), ::isalpha)){
+			action = "IDNTER";
+			code = 1;
+		}
+		else if(phrase[it_bis]!='\'' && std::any_of(std::begin(phrase.substr(it_bis,it_phrase-1)), std::end(phrase.substr(it_bis,it_phrase-1)), ::isalpha)){
+			action = "ELTER";
+			code = 0;
 		}
 		else {   // Sinon si c'est un vrai caractère et pas un quote, et qu'il n'a donc pas de quote
 			action = phrase.substr(it_bis,(it_phrase-it_bis));
 			code = 0;
-			//it_phrase +=1;
-			//it_bis = it_phrase;
 		}
 	}
 };
@@ -226,7 +230,6 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		break;
 
 		case 4:
-		return true;
 		while (ptr->clas==4){
 			Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action);
 			res_analys = true;
@@ -240,7 +243,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 			if(ptr->atom_t->cod==code) { //comparer le code trouvé dans l'arbre et celui de scan
 				res_analys = true;
 			  	scan(phrase, it_phrase, it_bis, code, action);
-				std::cout << "On a scanné, action : " << action << std::endl; //verification
+				std::cout << "On a scanné, action : " << action << " venant de : " << phrase[it_bis] << phrase[it_bis+1] << std::endl; //verification
 			} else {
 				res_analys = false;
 			}

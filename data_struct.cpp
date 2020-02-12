@@ -43,6 +43,7 @@ int main(void){
 	string::size_type it_bis=0;
 	int code;
 	string action;
+	bool res;
 
 	// test de scan
 	/*scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
@@ -66,12 +67,13 @@ int main(void){
 		i++;
 	}*/
 	for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
-		Analyse(A[i], phrase, it_phrase, it_bis, code, action);
-		std::cout << action << endl;
+		cout << "i : " << i << endl;
+		res = Analyse(A[i], phrase, it_phrase, it_bis, code, action);
+		std::cout << "res : " << res << "  action : " << action << endl;
 	}
 
 	// Affichage final
-	if(Analyse){
+	if(res){
 		std::cout << "OK, la phrase appartient bien à la grammaire" << endl;
 	} else {
 		std::cout << "NOT OK, la phrase est étrangère à la grammaire" << endl;

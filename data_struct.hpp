@@ -206,30 +206,30 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		if (Analyse(ptr->conc_t->left, phrase, it_phrase, it_bis, code, action)){
 			Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action);
 		} else {
-			return false;
+			res_analys = false;
 		}
 		break;
 
 		case 2:
 		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action)){
-			return true;
+			res_analys = true;
 		} else {
 			Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action);
 		}
 		break;
 
 		case 3:
-		res_analys =true;
+		res_analys = true;
 		Analyse(ptr->ou_t->child, phrase, it_phrase, it_bis, code, action);
-		return (res_analys);
+		res_analys = true;
 
 		break;
 
 		case 4:
-		res_analys =true;
+		return true;
 		while (ptr->clas==4){
 			Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action);
-			return (res_analys);
+			res_analys = true;
 			
 		}
 		break;
@@ -237,24 +237,22 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		case 5:
 		std::cout << "On rentre bien dans Atome" << std::endl;
 		if(ptr->atom_t->is_term){
-			if(ptr->atom_t->cod==code) {//comparer le code trouvé dans l'arbre et celui de scan
-				res_analys=true;
+			if(ptr->atom_t->cod==code) { //comparer le code trouvé dans l'arbre et celui de scan
+				res_analys = true;
 			  	scan(phrase, it_phrase, it_bis, code, action);
-				//std::cout << "On a scanné" << std::endl; verification
-				//std::cout<<action<<std::endl; verification
+				std::cout << "On a scanné, action : " << action << std::endl; //verification
 			} else {
-				res_analys=true;
+				res_analys = false;
 			}
 		} else {
 			if(ptr->atom_t->cod==code){
-				res_analys=true;
+				res_analys = true;
 			//std::cout <<"non terminal"<<std::endl; verification
 			} else {
-				res_analys=false;
+				res_analys = false;
 			}
 		}
-		return (res_analys);
 		break;
-		
 	}
+	return res_analys;
 };

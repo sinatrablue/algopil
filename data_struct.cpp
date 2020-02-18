@@ -23,19 +23,22 @@ int main(void){
 	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",1,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
 
 	A[S] = AS ;
-	//std::cout << "S generated" << std::endl;
+	std::cout << "S generated" << std::endl;
 	A[N] = AN ;
-	//std::cout << "N generated" << std::endl;
+	std::cout << "N generated" << std::endl;
 	A[E] = AE ;
-	//std::cout << "E generated" << std::endl;
+	std::cout << "E generated" << std::endl;
 	A[T] = AT ;
-	//std::cout << "T generated" << std::endl;
+	std::cout << "T generated" << std::endl;
 	A[F] = AF ;
-	//std::cout << "F generated" << std::endl;
+	std::cout << "F generated" << std::endl;
 
 	int prof=0;
-	//GenForet(prof, S, N, E, T, F, A);
-	//std::cout << "Entire forest generated." << endl;
+	GenForet(prof, S, N, E, T, F, A);
+	cout << "Entire forest generated." << endl;
+	cout << "============================================================================================================================================" << endl;
+	cout << "============================================================================================================================================" << endl;
+	cout << '\n' << '\n' << endl;
 	/* ------------------------------------------------------------- */
 
 	string phrase = "|S0|->|[|'a'|]|.|'b'|";
@@ -51,12 +54,13 @@ int main(void){
 	cout << action << endl;
 	*/
 
-	for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
+	/*for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
 		cout << "i : " << i << endl;
 		res = Analyse(A[i], phrase, it_phrase, it_bis, code, action, A);
 		std::cout << "res : " << res << "  action : " << action << endl;
-	}
+	}*/
 
+	res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
 	// Affichage final
 	if(res){
 		std::cout << "OK, la phrase appartient bien à la grammaire" << endl;

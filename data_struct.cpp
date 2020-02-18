@@ -53,7 +53,7 @@ int main(void){
 
 	for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
 		cout << "i : " << i << endl;
-		res = Analyse(A[i], phrase, it_phrase, it_bis, code, action);
+		res = Analyse(A[i], phrase, it_phrase, it_bis, code, action, A);
 		std::cout << "res : " << res << "  action : " << action << endl;
 	}
 

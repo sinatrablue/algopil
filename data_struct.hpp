@@ -208,35 +208,35 @@ void scan(std::string phrase, std::string::size_type &it_phrase, std::string::si
 	} else { std::cout << "Problème : on ne trouve pas de pipe" << std::endl; }
 };
 
-bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action){
+bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action, node *A[5]){
 	bool res_analys;
 	switch(ptr->clas){
 		case 1: 
-		if (Analyse(ptr->conc_t->left, phrase, it_phrase, it_bis, code, action)){
-			Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action);
+		if (Analyse(ptr->conc_t->left, phrase, it_phrase, it_bis, code, action, A)){
+			Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action, A);
 		} else {
 			res_analys = false;
 		}
 		break;
 
 		case 2:
-		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action)){
+		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action, A)){
 			res_analys = true;
 		} else {
-			Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action);
+			Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action, A);
 		}
 		break;
 
 		case 3:
 		res_analys = true;
-		Analyse(ptr->ou_t->child, phrase, it_phrase, it_bis, code, action);
+		Analyse(ptr->ou_t->child, phrase, it_phrase, it_bis, code, action, A);
 		res_analys = true;
 
 		break;
 
 		case 4:
 		while (ptr->clas==4){
-			Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action);
+			Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action, A);
 			res_analys = true;
 			
 		}
@@ -244,16 +244,32 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 
 		case 5:
 		std::cout << "On rentre bien dans Atome" << std::endl;
+		if(ptr->atom_t->action == "N") {
+			std::cout << "Noeud N, on passe à l'arbre N" << std::endl;
+			ptr = A[1] ;
+			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
+		} else if(ptr->atom_t->action == "E"){
+			std::cout << "Noeud E, on passe à l'arbre E" << std::endl;
+			ptr = A[2];
+			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
+		} else if(ptr->atom_t->action == "T"){
+			std::cout << "Noeud T, on passe à l'arbre T" << std::endl;
+			ptr = A[3];
+			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
+		} else if(ptr->atom_t->action == "F"){
+			std::cout << "Noeud F, on passe à l'arbre F" << std::endl;
+			ptr = A[4];
+			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
+		}
 		if(ptr->atom_t->is_term){
-			if(ptr->atom_t->cod==code) { //comparer le code trouvé dans l'arbre et celui de scan
+			if(ptr->atom_t->action == action) { //comparer le caractère trouvé dans l'arbre et celui de scan
 				res_analys = true;
 			  	scan(phrase, it_phrase, it_bis, code, action);
-				std::cout << "On a scanné, action : " << action << " venant de : " << phrase[it_bis] << phrase[it_bis+1] << std::endl; //verification
 			} else {
 				res_analys = false;
 			}
 		} else {
-			if(ptr->atom_t->cod==code){
+			if(ptr->atom_t->action == action){
 				res_analys = true;
 			//std::cout <<"non terminal"<<std::endl; verification
 			} else {

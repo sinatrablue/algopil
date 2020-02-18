@@ -178,29 +178,34 @@ for(std::string::size_type i = 0; i < str.size(); ++i) {
 }
 */
 
+// Fonction pour vérifier que ça contient au moins une lettre, étant donné que la méthode std::any_of puis std::isalpha ne fonctionne pas
+bool atLeastOneLetter(std::string word){
+	bool hasLetter=false;
+	for (int i = 0; i < word.size(); i++) {
+        if (isalpha(word.at(i))) { hasLetter = true; }
+    }
+	return hasLetter;
+};
+
+
 // Procédure scan
 void scan(std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action){  // Doit reconnaitre les éléments terminaux car ils sont entre quotes
 	if(phrase[it_phrase] == '|'){
-		it_phrase+=1;
-		it_bis = it_phrase;
-		while(phrase[it_phrase] != '|'){ it_phrase += 1; }
-		if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\''){  // Si le caractère trouvé est une lettre et entourée de quotes
-			action = phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1);
-			code = 1;
-		}
-		else if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\'' && std::any_of(std::begin(phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1)), std::end(phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1)), ::isalpha)){
-			action = "IDNTER";
-			code = 1;
-		}
-		else if(phrase[it_bis]!='\'' && std::any_of(std::begin(phrase.substr(it_bis,it_phrase-1)), std::end(phrase.substr(it_bis,it_phrase-1)), ::isalpha)){
+		it_bis = it_phrase+1;
+		do{it_phrase += 1;}while(phrase[it_phrase] != '|');
+		if(phrase[it_bis]=='\'' && phrase[it_phrase-1]=='\'' && atLeastOneLetter(phrase.substr(it_bis+1,(it_phrase-3)-it_bis+1))){
 			action = "ELTER";
+			code = 1;
+		}
+		else if(phrase[it_bis]!='\'' && atLeastOneLetter(phrase.substr(it_bis,(it_phrase-it_bis)))){
+			action = "IDNTER";
 			code = 0;
 		}
-		else {   // Sinon si c'est un vrai caractère et pas un quote, et qu'il n'a donc pas de quote
+		else {   // Sinon si c'est un vrai caractère et pas de quotes
 			action = phrase.substr(it_bis,(it_phrase-it_bis));
 			code = 0;
 		}
-	}
+	} else { std::cout << "Problème : on ne trouve pas de pipe" << std::endl; }
 };
 
 bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, std::string::size_type &it_bis, int &code, std::string &action){

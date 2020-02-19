@@ -247,18 +247,25 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		if(ptr->atom_t->action == "N") {
 			std::cout << "Noeud N, on passe à l'arbre N" << std::endl;
 			ptr = A[1] ;
+			scan(phrase, it_phrase, it_bis, code, action);
 			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
-		} else if(ptr->atom_t->action == "E"){
+		}
+		if(ptr->atom_t->action == "E"){
 			std::cout << "Noeud E, on passe à l'arbre E" << std::endl;
 			ptr = A[2];
+			scan(phrase, it_phrase, it_bis, code, action);
 			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
-		} else if(ptr->atom_t->action == "T"){
+		}
+		if(ptr->atom_t->action == "T"){
 			std::cout << "Noeud T, on passe à l'arbre T" << std::endl;
 			ptr = A[3];
+			scan(phrase, it_phrase, it_bis, code, action);
 			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
-		} else if(ptr->atom_t->action == "F"){
+		}
+		if(ptr->atom_t->action == "F"){
 			std::cout << "Noeud F, on passe à l'arbre F" << std::endl;
 			ptr = A[4];
+			scan(phrase, it_phrase, it_bis, code, action);
 			Analyse(ptr, phrase, it_phrase, it_bis, code, action, A);
 		}
 		if(ptr->atom_t->is_term){

@@ -214,7 +214,8 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		case 1: 
 		std::cout << "Conc" << std::endl;
 		if (Analyse(ptr->conc_t->left, phrase, it_phrase, it_bis, code, action, A)){
-			Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action, A);
+			std::cout << "‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰ Conc fils gauche OK" << std::endl;
+			res_analys = Analyse(ptr->conc_t->right, phrase, it_phrase, it_bis, code, action, A);
 		} else {
 			res_analys = false;
 		}
@@ -225,7 +226,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action, A)){
 			res_analys = true;
 		} else {
-			Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action, A);
+			res_analys = Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action, A);
 		}
 		break;
 
@@ -240,6 +241,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		case 4:
 		std::cout << "Fang" << std::endl;
 		while (Analyse(ptr->fang_t->child, phrase, it_phrase,it_bis, code, action, A)){
+			std::cout << "‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰ Fang fils OK" << std::endl;
 			res_analys = true;
 			
 		}
@@ -251,6 +253,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		if(ptr->atom_t->is_term){
 			std::cout << "is_term true" << std::endl;
 			if(ptr->atom_t->action == action) { //comparer le caractère trouvé dans l'arbre et celui de scan
+				std::cout << "action==action" << std::endl;
 				res_analys = true;
 			  	scan(phrase, it_phrase, it_bis, code, action);
 			} else {
@@ -261,33 +264,33 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 			std::cout << "is_term false" << std::endl;
 			if(ptr->atom_t->action == "N") {
 			std::cout << "Noeud N, on passe à l'arbre N" << std::endl;
-			//scan(phrase, it_phrase, it_bis, code, action);
 			res_analys = Analyse(A[1], phrase, it_phrase, it_bis, code, action, A);
+			scan(phrase, it_phrase, it_bis, code, action);
 			} else if(ptr->atom_t->action == "E"){
 			std::cout << "Noeud E, on passe à l'arbre E" << std::endl;
-			//scan(phrase, it_phrase, it_bis, code, action);
 			res_analys = Analyse(A[2], phrase, it_phrase, it_bis, code, action, A);
+			scan(phrase, it_phrase, it_bis, code, action);
 			} else if(ptr->atom_t->action == "T"){
 			std::cout << "Noeud T, on passe à l'arbre T" << std::endl;
-			//scan(phrase, it_phrase, it_bis, code, action);
 			res_analys = Analyse(A[3], phrase, it_phrase, it_bis, code, action, A);
+			scan(phrase, it_phrase, it_bis, code, action);
 			} else if(ptr->atom_t->action == "F"){
 			std::cout << "Noeud F, on passe à l'arbre F" << std::endl;
-			//scan(phrase, it_phrase, it_bis, code, action);
 			res_analys = Analyse(A[4], phrase, it_phrase, it_bis, code, action, A);
-			}
-			std::cout << "Pas un atome connu" << std::endl;
-
-			if(ptr->atom_t->action == action){
-				std::cout << "action==action" << std::endl;
-				res_analys = true;
+			scan(phrase, it_phrase, it_bis, code, action);
 			} else {
-				std::cout << "action pas égal action" << std::endl;
-				res_analys = false;
+				std::cout << "Pas un atome connu" << std::endl;
+				if(ptr->atom_t->action == action){
+					std::cout << "action==action" << std::endl;
+					res_analys = true;
+				} else {
+					std::cout << "action pas égal action" << std::endl;
+					res_analys = false;
+				}
 			}
 		}
 		break;
 	}
-	std::cout << "Fin de fonction" << std::endl;
+	std::cout << "Fin de fonction" << '\n' << "************************" << std::endl;
 	return res_analys;
 };

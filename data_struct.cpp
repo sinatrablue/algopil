@@ -34,11 +34,11 @@ int main(void){
 	std::cout << "F generated" << std::endl;
 
 	int prof=0;
-	GenForet(prof, S, N, E, T, F, A);
-	cout << "Entire forest generated." << endl;
-	cout << "============================================================================================================================================" << endl;
-	cout << "============================================================================================================================================" << endl;
-	cout << '\n' << '\n' << endl;
+	//GenForet(prof, S, N, E, T, F, A);
+	//cout << "Entire forest generated." << endl;
+	//cout << "============================================================================================================================================" << endl;
+	//cout << "============================================================================================================================================" << endl;
+	//cout << '\n' << '\n' << endl;
 	/* ------------------------------------------------------------- */
 
 	string phrase = "|S0|->|[|'a'|]|.|'b'|";
@@ -48,11 +48,10 @@ int main(void){
 	string action;
 	bool res;
 
-	/*
-	// test de scan
+	// Premier appel de scan
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
-	cout << action << endl;
-	*/
+	cout << action << '\n' << "==============================================" << endl;
+	
 
 	/*for (int i=0; i<5; i++){ //j'ai changé par for qui me semble plus optimisé vu que l'on connait le nombre d'itération en avance
 		cout << "i : " << i << endl;
@@ -61,6 +60,7 @@ int main(void){
 	}*/
 
 	res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
+	cout << "==============================================" << endl;
 	// Affichage final
 	if(res){
 		std::cout << "OK, la phrase appartient bien à la grammaire" << endl;

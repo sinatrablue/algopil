@@ -224,6 +224,7 @@ bool Analyse(node *ptr, std::string phrase, std::string::size_type &it_phrase, s
 		case 2:
 		std::cout << "Plus" << std::endl;
 		if (Analyse(ptr->plus_t->left, phrase, it_phrase, it_bis, code, action, A)){
+			std::cout << "‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰‰ Plus fils gauche OK" << std::endl;
 			res_analys = true;
 		} else {
 			res_analys = Analyse(ptr->plus_t->right, phrase, it_phrase, it_bis, code, action, A);

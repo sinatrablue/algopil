@@ -18,9 +18,10 @@ int main(void){
 	
 	node *AS = GenConc(	GenFang( GenConc( GenConc( GenConc( GenAtom("N",0,false),GenAtom("->",1,true)),	GenAtom("E",0,false)),GenAtom(",",1,true))),GenAtom(";",1,true));
 	node *AN = GenAtom("IDNTER", 0, false);
-	node *AE = GenConc(	GenFang( GenConc( GenAtom("T", 0, false), GenAtom("+", 0, false))), GenAtom("+", 0, false))	;
-	node *AT = GenConc(	GenFang( GenConc( GenAtom("F", 0, false), GenAtom(".", 0, false))), GenAtom("F", 0, false))	;
-	node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",1,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
+	node *AE = GenConc(	GenAtom("T", 0, false), GenFang( GenConc( GenAtom("+", 0, false), GenAtom("T", 0, false))))	;
+	node *AT = GenConc(	GenAtom("F", 0, false), GenFang( GenConc( GenAtom(".", 0, false), GenAtom("F", 0, false))))	;
+	//node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",1,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
+	//node *AF = GenPlus( GenPlus( GenPlus( GenAtom("IDNTER", 0, false), GenAtom("ELTER", 0, true)), GenConc( GenAtom("(", 0, false), GenConc(GenAtom("E", 0, false), GenAtom(")", 0, false))), GenPlus( GenConc( GenAtom("[", 0, false), GenConc( GenAtom("E", 0, false), GenAtom("]", 0, false))), GenConc( GenAtom("(/", 0, false), GenConc(GenAtom("E", 0, false), GenAtom("/)", 0, false)))) ));
 
 	A[S] = AS ;
 	std::cout << "S generated" << std::endl;
@@ -34,11 +35,11 @@ int main(void){
 	std::cout << "F generated" << std::endl;
 
 	int prof=0;
-	//GenForet(prof, S, N, E, T, F, A);
-	//cout << "Entire forest generated." << endl;
-	//cout << "============================================================================================================================================" << endl;
-	//cout << "============================================================================================================================================" << endl;
-	//cout << '\n' << '\n' << endl;
+	GenForet(prof, S, N, E, T, F, A);
+	cout << "Entire forest generated." << endl;
+	cout << "============================================================================================================================================" << endl;
+	cout << "============================================================================================================================================" << endl;
+	cout << '\n' << '\n' << endl;
 	/* ------------------------------------------------------------- */
 
 	string phrase = "|S0|->|[|'a'|]|.|'b'|";
@@ -59,7 +60,7 @@ int main(void){
 		std::cout << "res : " << res << "  action : " << action << endl;
 	}*/
 
-	res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
+	//res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
 	cout << "==============================================" << endl;
 	// Affichage final
 	if(res){

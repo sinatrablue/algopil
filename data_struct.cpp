@@ -20,23 +20,21 @@ int main(void){
 	node *AN = GenAtom("IDNTER", 0, false);
 	node *AE = GenConc(	GenAtom("T", 0, false), GenFang( GenConc( GenAtom("+", 0, false), GenAtom("T", 0, false))))	;
 	node *AT = GenConc(	GenAtom("F", 0, false), GenFang( GenConc( GenAtom(".", 0, false), GenAtom("F", 0, false))))	;
-	//node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",1,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
-	//node *AF = GenPlus( GenPlus( GenPlus( GenAtom("IDNTER", 0, false), GenAtom("ELTER", 0, true)), GenConc( GenAtom("(", 0, false), GenConc(GenAtom("E", 0, false), GenAtom(")", 0, false))), GenPlus( GenConc( GenAtom("[", 0, false), GenConc( GenAtom("E", 0, false), GenAtom("]", 0, false))), GenConc( GenAtom("(/", 0, false), GenConc(GenAtom("E", 0, false), GenAtom("/)", 0, false)))) ));
     node *AF=GenPlus(GenPlus(GenPlus(GenAtom("IDNTER",0,false),GenAtom("ELTER",0,false)),GenConc(GenAtom("(",0,false),GenConc(GenAtom("E",0,false),GenAtom(")",0,false)))),GenPlus(GenConc(GenAtom("[",0,false),GenConc(GenAtom("E",0,false),GenAtom("]",0,false))),GenConc(GenAtom("(/",0,false),GenConc(GenAtom("E",0,false),GenAtom("/)",0,false)))));
 	A[S] = AS ;
-	std::cout << "S generated" << std::endl;
+	//std::cout << "S generated" << std::endl;
 	A[N] = AN ;
-	std::cout << "N generated" << std::endl;
+	//std::cout << "N generated" << std::endl;
 	A[E] = AE ;
-	std::cout << "E generated" << std::endl;
+	//std::cout << "E generated" << std::endl;
 	A[T] = AT ;
-	std::cout << "T generated" << std::endl;
+	//std::cout << "T generated" << std::endl;
 	A[F] = AF ;
-	std::cout << "F generated" << std::endl;
+	//std::cout << "F generated" << std::endl;
 
 	int prof=0;
-	GenForet(prof, S, N, E, T, F, A);
-	cout << "Entire forest generated." << endl;
+	//GenForet(prof, S, N, E, T, F, A);
+	//cout << "Entire forest generated." << endl;
 	cout << "============================================================================================================================================" << endl;
 	cout << "============================================================================================================================================" << endl;
 	cout << '\n' << '\n' << endl;
@@ -51,6 +49,7 @@ int main(void){
 
 	// Premier appel de scan
 	scan(phrase, it_phrase, it_bis, code, action); // On scanne le premier caractère de la phrase pour commencer
+	std::cout << ".+*  SCAN  *+." << std::endl;
 	cout << action << '\n' << "==============================================" << endl;
 	
 
@@ -60,7 +59,7 @@ int main(void){
 		std::cout << "res : " << res << "  action : " << action << endl;
 	}*/
 
-	//res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
+	res = Analyse(A[0], phrase, it_phrase, it_bis, code, action, A);
 	cout << "==============================================" << endl;
 	// Affichage final
 	if(res){

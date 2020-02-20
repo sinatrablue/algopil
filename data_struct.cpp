@@ -22,7 +22,7 @@ int main(void){
 	node *AT = GenConc(	GenAtom("F", 0, false), GenFang( GenConc( GenAtom(".", 0, false), GenAtom("F", 0, false))))	;
 	//node *AF = GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenConc(GenConc(GenPlus(GenPlus(GenAtom("IDNTER",0,false) , GenAtom("ELTER",1,true)) , GenAtom("(",0,false)) , GenAtom("E",0,false)) , GenAtom(")",0,false)) , GenAtom("[",0,false)) , GenAtom("E",0,false)) , GenAtom("]",0,false)) , GenAtom("(/",0,false)) , GenAtom("E", 0, false)) , GenAtom("/)",0,false)) ;
 	//node *AF = GenPlus( GenPlus( GenPlus( GenAtom("IDNTER", 0, false), GenAtom("ELTER", 0, true)), GenConc( GenAtom("(", 0, false), GenConc(GenAtom("E", 0, false), GenAtom(")", 0, false))), GenPlus( GenConc( GenAtom("[", 0, false), GenConc( GenAtom("E", 0, false), GenAtom("]", 0, false))), GenConc( GenAtom("(/", 0, false), GenConc(GenAtom("E", 0, false), GenAtom("/)", 0, false)))) ));
-
+    node *AF=GenPlus(GenPlus(GenPlus(GenAtom("IDNTER",0,false),GenAtom("ELTER",0,false)),GenConc(GenAtom("(",0,false),GenConc(GenAtom("E",0,false),GenAtom(")",0,false)))),GenPlus(GenConc(GenAtom("[",0,false),GenConc(GenAtom("E",0,false),GenAtom("]",0,false))),GenConc(GenAtom("(/",0,false),GenConc(GenAtom("E",0,false),GenAtom("/)",0,false)))));
 	A[S] = AS ;
 	std::cout << "S generated" << std::endl;
 	A[N] = AN ;
